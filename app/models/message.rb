@@ -3,9 +3,14 @@ class Message < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
-  validates :content, presence: true, unless: was_attached?
-  
-  def was_attached??
-    self.image.was_attached?
+  validates :content, presence: true, unless: :was_attached?
+
+  def was_attached?
+    self.image.attached?
   end
+
+  attribute :content, :string # あるいは: text
 end
+
+# spec/factories/messages.rb
+
